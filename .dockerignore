@@ -1,0 +1,19 @@
+# VCS
+.git
+.gitignore
+
+# Node
+node_modules
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode
+
+# Build artifacts
+**/*.map
+dist
+build
