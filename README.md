@@ -1,6 +1,6 @@
 # School Lost & Found (FBLA Demo)
 
-A fast, accessible, mobile-first Lost & Found website built for the FBLA Website Coding & Development event. No backend required—data persists in localStorage for demonstration.
+A fast, accessible, mobile-first Lost & Found website built for the FBLA Website Coding & Development event. 
 
 ## Highlights
 - Accessible by default: semantic HTML, ARIA, keyboard-friendly, high contrast.
@@ -60,29 +60,3 @@ Or use VS Code "Live Server" extension and click "Go Live".
 ## Admin + MongoDB backend (production)
 This repo includes an optional Node/Express backend to use MongoDB for storage and a protected admin portal with a shared password (demo). Replace the demo password with an environment variable and rotate it regularly—or use proper accounts.
 
-Backend endpoints:
-- `POST /api/login` { password } → { token }
-- `GET /api/items` → { items: [...] } (public)
-- `POST /api/items` (admin) → create item
-- `PATCH /api/items/:id` (admin) → toggle status
-- `DELETE /api/items/:id` (admin) → delete item
-
-### Run backend locally
-1. Copy `server/.env.example` to `server/.env` and set values.
-2. Install and run:
-	 - From the `server` folder:
-		 - `npm install`
-		 - `npm run dev`
-3. Open `http://localhost:8080/admin.html` and log in with `ADMIN_PASSWORD`.
-
-### Deploy to Google Cloud (simplified)
-Option A: Cloud Run (Dockerless deploy)
-- Create a new Cloud Run service with the `server` folder as the source.
-- Configure env vars: `MONGO_URI`, `JWT_SECRET`, `ADMIN_PASSWORD`, `STATIC_DIR=../`.
-- Point a static host (or the same service) to serve the frontend files. If served from the same service, `API_BASE` can remain empty.
-
-Option B: App Engine (Flexible or Standard with Node)
-- Deploy `server` as an App Engine service; serve static files either via App Engine static configs or from a separate static host.
-- Set env vars as above.
-
-In `admin.html`, set `window.API_BASE` to your backend URL if hosting separately.
