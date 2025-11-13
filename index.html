@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>School Lost & Found · Demo</title>
+    <meta name="description" content="Find or report lost items on campus. Accessible, fast, and mobile-friendly." />
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/logo.jpg" type="image/jpeg">
+    <meta name="theme-color" content="#0d4a73" />
+    <link rel="preload" href="./styles/main.css" as="style">
+    <link rel="stylesheet" href="./styles/main.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header" role="banner">
+      <div class="wrap">
+        <div class="branding">
+          <img src="./assets/logo.jpg" alt="School Lost & Found logo" width="32" height="32" />
+          <span class="site-title">HSN Lost and Found</span>
+        </div>
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            <li><a href="#browse" aria-current="page">Browse Items</a></li>
+            <li><a href="#report">Report Item</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="./admin.html">Admin Portal</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="site-main" tabindex="-1">
+      <section id="browse" class="section">
+        <div class="wrap">
+          <h1>Find your lost item</h1>
+          <p class="lede">Search by keyword, filter by category or date, then claim your item with a simple form.</p>
+
+          <form id="controls" class="controls" role="search" aria-label="Search and filter lost items">
+            <label for="q" class="visually-hidden">Search</label>
+            <input id="q" name="q" type="search" placeholder="Search by name, description, or location" autocomplete="off" />
+
+            <label for="category" class="visually-hidden">Category</label>
+            <select id="category" name="category">
+              <option value="">All categories</option>
+              <option>Clothing</option>
+              <option>Electronics</option>
+              <option>Accessories</option>
+              <option>Academic</option>
+              <option>Other</option>
+            </select>
+
+            <label for="status" class="visually-hidden">Status</label>
+            <select id="status" name="status">
+              <option value="">All status</option>
+              <option value="unclaimed">Unclaimed</option>
+              <option value="claimed">Claimed</option>
+            </select>
+
+            <label for="sort" class="visually-hidden">Sort by</label>
+            <select id="sort" name="sort">
+              <option value="recent">Most recent</option>
+              <option value="oldest">Oldest</option>
+              <option value="title">Title A–Z</option>
+              <option value="category">Category</option>
+            </select>
+
+            <details class="date-filter">
+              <summary>Filter by date</summary>
+              <div class="date-grid">
+                <label for="from">From</label>
+                <input type="date" id="from" name="from" />
+                <label for="to">To</label>
+                <input type="date" id="to" name="to" />
+              </div>
+            </details>
+
+            <button type="button" id="resetFilters" class="secondary">Reset</button>
+          </form>
+
+          <div id="resultsMeta" class="results-meta" aria-live="polite"></div>
+          <div id="itemsGrid" class="items-grid" role="list" aria-label="Lost items list">
+            <noscript>
+              JavaScript is required to browse items. Please enable JavaScript.
+            </noscript>
+          </div>
+        </div>
+      </section>
+
+      <section id="report" class="section alt">
+        <div class="wrap">
+          <h2>Report a found item</h2>
+          <p>Submit basic information to help us reunite items with their owners. For demo purposes, data is stored locally in your browser only.</p>
+          <form id="reportForm" class="card form" novalidate>
+            <div class="field">
+              <label for="title">Item name</label>
+              <input id="title" name="title" required maxlength="60" placeholder="e.g., Blue Nike hoodie" />
+              <div class="error" id="err-title" role="alert"></div>
+            </div>
+            <div class="field">
+              <label for="category2">Category</label>
+              <select id="category2" name="category2" required>
+                <option value="">Select…</option>
+                <option>Clothing</option>
+                <option>Electronics</option>
+                <option>Accessories</option>
+                <option>Academic</option>
+                <option>Other</option>
+              </select>
+              <div class="error" id="err-category2" role="alert"></div>
+            </div>
+            <div class="field">
+              <label for="location">Where found</label>
+              <input id="location" name="location" required maxlength="80" placeholder="e.g., Library study area" />
+              <div class="error" id="err-location" role="alert"></div>
+            </div>
+            <div class="field">
+              <label for="dateFound">Date found</label>
+              <input id="dateFound" name="dateFound" type="date" required />
+              <div class="error" id="err-dateFound" role="alert"></div>
+            </div>
+            <div class="field">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" rows="3" maxlength="240" placeholder="Brands, colors, unique features" required></textarea>
+              <div class="error" id="err-description" role="alert"></div>
+            </div>
+            <div class="field">
+              <label for="image">Photo (optional)</label>
+              <input id="image" name="image" type="file" accept="image/*" />
+              <small>Tip: Use good lighting and a plain background.</small>
+            </div>
+            <div class="actions">
+              <button type="submit">Add item</button>
+              <button type="reset" class="secondary">Clear</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="wrap">
+          <h2>About this site</h2>
+          <p>This is a student-built demo for the FBLA Website Coding & Development event. It emphasizes accessibility, performance, and privacy-friendly design.</p>
+          <ul>
+            <li>Accessible: keyboard-friendly, ARIA labels, strong color contrast.</li>
+            <li>Fast: optimized images, lazy loading, minimal JS, offline-ready.</li>
+            <li>Privacy-first: no personal data stored on a server in this demo.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" class="section alt">
+        <div class="wrap">
+          <h2>Contact</h2>
+          <address>
+            Lost & Found Desk<br/>
+            Main Office, High School North<br/>
+            Email: <a href="mailto:lostfound@example.edu">lostfound@example.edu</a>
+          </address>
+        </div>
+      </section>
+
+      <dialog id="itemDialog" aria-label="Item details">
+        <div class="dialog-inner">
+          <button class="close" aria-label="Close">×</button>
+          <div id="dialogContent"></div>
+        </div>
+      </dialog>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <small>© <span id="year"></span> WWP High School North. Demo build</small>
+        <div class="footer-actions">
+          <button id="seedData" class="tiny secondary" title="Reset demo data">Reset demo data</button>
+          <a class="tiny button secondary" href="./admin.html" title="Go to admin portal" style="text-decoration:none; display:inline-block;">Admin</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./scripts/app.js" defer></script>
+  </body>
+  </html>

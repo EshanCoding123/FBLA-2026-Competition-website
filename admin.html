@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · Lost & Found</title>
+  <link rel="icon" href="./assets/logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="./styles/main.css">
+    <style>
+      .admin-grid { display: grid; grid-template-columns: 320px 1fr; gap: 1rem; }
+      @media (max-width: 900px){ .admin-grid{ grid-template-columns: 1fr; } }
+      .muted { color: var(--muted); }
+      .table { width: 100%; border-collapse: collapse; }
+      .table th, .table td { border-bottom: 1px solid var(--border); text-align: left; padding: .5rem .25rem; }
+      .pill { font-size: .75rem; padding: .15rem .5rem; border-radius: .5rem; border: 1px solid var(--border); }
+      .row-actions { display: flex; gap: .25rem; }
+      .notice { background: #fff8e1; border: 1px solid #facc15; color: #713f12; padding: .5rem .75rem; border-radius: .5rem; }
+      .hidden { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="wrap">
+        <div class="branding">
+          <img src="./assets/logo.jpg" alt="Logo" width="32" height="32" />
+          <span class="site-title">Lost & Found Admin</span>
+        </div>
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            <li><a href="./index.html">Public site</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <section class="section">
+        <div class="wrap">
+          <h1>Admin Portal</h1>
+          <p class="lede">Only Lost & Found managers may use this page. Changes sync to the database.</p>
+
+          <div id="loginBox" class="card form" style="max-width: 480px;">
+            <div class="field">
+              <label for="password">Admin password</label>
+              <input id="password" type="password" placeholder="Enter admin password" />
+              <div class="error" id="err-password"></div>
+            </div>
+            <div class="actions">
+              <button id="loginBtn">Sign in</button>
+            </div>
+            <p class="muted">This demo uses a shared secret. In production, replace with proper accounts.</p>
+          </div>
+
+          <div id="app" class="hidden">
+            <div class="notice" id="apiInfo">Connected to API.</div>
+            <div class="admin-grid" style="margin-top:1rem;">
+              <aside>
+                <h2>Add item</h2>
+                <form id="addForm" class="card form" novalidate>
+                  <div class="field">
+                    <label for="title">Item name</label>
+                    <input id="title" name="title" required maxlength="60" />
+                    <div class="error" id="err-title"></div>
+                  </div>
+                  <div class="field">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                      <option value="">Select…</option>
+                      <option>Clothing</option>
+                      <option>Electronics</option>
+                      <option>Accessories</option>
+                      <option>Academic</option>
+                      <option>Other</option>
+                    </select>
+                    <div class="error" id="err-category"></div>
+                  </div>
+                  <div class="field">
+                    <label for="location">Where found</label>
+                    <input id="location" name="location" required maxlength="80" />
+                    <div class="error" id="err-location"></div>
+                  </div>
+                  <div class="field">
+                    <label for="dateFound">Date found</label>
+                    <input id="dateFound" name="dateFound" type="date" required />
+                    <div class="error" id="err-dateFound"></div>
+                  </div>
+                  <div class="field">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="3" maxlength="240" required></textarea>
+                    <div class="error" id="err-description"></div>
+                  </div>
+                  <div class="field">
+                    <label for="image">Photo (optional)</label>
+                    <input id="image" name="image" type="file" accept="image/*" />
+                  </div>
+                  <div class="actions">
+                    <button type="submit">Add item</button>
+                    <button type="reset" class="secondary">Clear</button>
+                  </div>
+                </form>
+              </aside>
+              <section>
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem;">
+                  <h2>Inventory</h2>
+                  <div class="muted" id="count"></div>
+                </div>
+                <div class="card" style="padding:.5rem; overflow:auto;">
+                  <table class="table" aria-label="Lost & Found items">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Found</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="rows"></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // If serving backend and frontend together, leave blank. Otherwise set to your backend URL.
+      // Example: window.API_BASE = 'https://YOUR-CLOUD-RUN-URL';
+      window.API_BASE = '';
+    </script>
+    <script src="./scripts/admin.js" defer></script>
+  </body>
+  </html>
